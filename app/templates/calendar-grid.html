@@ -2,7 +2,7 @@
   <calendar-chooser month-value="calendar.month" year-value="calendar.year">
   </calendar-chooser>
   <table>
-    <caption>{{ monthNames[calendar.month] }}</caption>
+    <caption>{{ monthNames[calendar.month] }}, {{ calendar.year }}</caption>
     <thead>
       <tr>
         <th ng-repeat="abbr in weekdayAbbrvs track by $index">{{ abbr }}</th>

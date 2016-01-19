@@ -39,54 +39,13 @@ angular.module('calendarDemoApp', [])
       return names;
     }
   ])
-  .directive('directUpdate', [
-    // This directive is an experiment to see if one controller could avoid
-    // adding a watcher to recalculate the values changed by another controller.
-    // Guessing it might be worth a performance gain if there's a lot of digest
-    // activity, but it adds to the complexity because both the update receiver
-    // and the update creator have to explicitly choose to cooperate through
-    // this.
-    function () {
-      return {
-        restrict: 'A',
-        scope: false,
-        controller: [
-          '$scope', '$timeout',
-          function ($scope, $timeout) {
-            this.update = function (name) {
-              // $timeout gets us to the end of the current $digest, which
-              // allows the changes made by the updating controller to be
-              // propogated, if they are on an isolate scope.
-              $timeout(function () {
-                $scope.$broadcast('direct-update:' + name);
-              }, 0);
-            }
-          }
-        ]
-      }
-    }
-  ])
   .directive('calendarGrid', [
     function () {
       return {
         restrict: 'E',
         scope: true,
         replace: true,
-        require: '?directUpdate',
         templateUrl: 'templates/calendar-grid.html',
-        link: function (scope, element, attrs, directUpdateController) {
-          if (directUpdateController) {
-            // Uses a (probably) more performant change notification;
-            scope.$on('direct-update:calendar', function () {
-              scope.setWeeks();
-            });
-          } else {
-            // Fallback if we didn't add the direct-update attribute
-            scope.$watchCollection('calendar', function () {
-              scope.setWeeks();
-            });
-          }
-        },
         controller: [
           '$scope', 'monthNames', 'weekdayNames',
           function ($scope, monthNames, weekdayNames) {
@@ -123,6 +82,9 @@ angular.module('calendarDemoApp', [])
             };
 
             $scope.setWeeks();
+            $scope.$watchCollection('calendar', function () {
+              $scope.setWeeks();
+            });
           }
         ]
       };
@@ -137,26 +99,11 @@ angular.module('calendarDemoApp', [])
           yearValue: '='
         },
         replace: true,
-        require: '^?directUpdate',
         templateUrl: 'templates/calendar-chooser.html',
-        link: function (scope, element, attrs, directUpdateController) {
-          scope.parentControl = directUpdateController;
-        },
         controller: [
           '$scope', 'monthNames',
           function ($scope, monthNames) {
             $scope.monthNames = monthNames.short;
-            $scope.month = function (value) {
-              if (!arguments.length) { return $scope.monthValue; }
-              $scope.monthValue = +value;
-              $scope.parentControl && $scope.parentControl.update('calendar');
-            };
-
-            $scope.year = function (value) {
-              if (!arguments.length) { return $scope.yearValue; }
-              $scope.yearValue = +value;
-              $scope.parentControl && $scope.parentControl.update('calendar');
-            };
           }
         ]
       };
