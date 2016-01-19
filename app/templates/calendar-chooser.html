@@ -1,0 +1,15 @@
+<div class="calendar-chooser">
+  <form>
+
+    <select name="month" ng-model="month"
+            ng-model-options="{ getterSetter: true }">
+      <option ng-repeat="name in monthNames" value="{{ $index }}">
+        {{ name }}
+      </option>
+    </select>
+
+    <input type="number" name="year" ng-model="year"
+           ng-model-options="{ getterSetter: true }">
+
+  </form>
+</div>

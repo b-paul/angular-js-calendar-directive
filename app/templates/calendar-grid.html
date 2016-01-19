@@ -1,0 +1,24 @@
+<div class="calendar-grid" direct-update>
+  <calendar-chooser month-value="calendar.month" year-value="calendar.year">
+  </calendar-chooser>
+  <table>
+    <caption>{{ monthNames[calendar.month] }}</caption>
+    <thead>
+      <tr>
+        <th ng-repeat="abbr in weekdayAbbrvs track by $index">{{ abbr }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="week in weeks">
+        <td ng-repeat="day in week"
+            ng-class="{
+              'weekday':    day.weekday,
+              'this-month': day.month === calendar.month,
+              'today':      day.day === currentDate
+                         && day.month === currentMonth
+                         && day.year === currentYear
+            }">{{ day.day }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
