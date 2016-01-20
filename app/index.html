@@ -6,7 +6,39 @@
 </head>
 <body>
 
-<calendar-grid month-names="long" weekday-names="narrow" date="1955-11-5">
+<h1>Default <code>&lt;calendar-grid></code> with arrows</h1>
+<calendar-grid arrows></calendar-grid>
+
+<h1>Specify starting date</h1>
+<calendar-grid arrows date="1955-11-5"></calendar-grid>
+
+<h1>Alternate way to specify starting date</h1>
+<calendar-grid arrows month="9" year="1993"></calendar-grid>
+
+<h1>Either value may be omitted</h1>
+<p>It will be substituted for the equivalent value from the current date.</p>
+<calendar-grid arrows month="9"></calendar-grid>
+
+<h1>Control display of month and weekday names</h1>
+<p><code>month-names</code> accepts the values "short" and "long".</p>
+<p><code>weekday-names</code> accepts the same as well as "narrow".</p>
+<p>By default, <code>month-names="long"</code> and
+<code>weekday-names="narrow"</code>.</p>
+<calendar-grid arrows month-names="short" weekday-names="short"></calendar-grid>
+
+<h1>Transcluded HTML has access to the <code>calendar</code> scope property
+of its parent.</h1>
+<calendar-grid>
+  <button ng-controller="randomMonth" ng-click="calendar.month = spin()">
+    Spin!
+  </button>
+</calendar-grid>
+
+<h1>Include a <code>&lt;calendar-chooser></code> for a quick alternative to
+<code>arrows</code> navigation.</h1>
+<p><code>&lt;calendar-chooser></code> accepts the same <code>month-names</code>
+attribute as <code>&lt;calendar-grid></code></p>
+<calendar-grid>
   <p>Please select a month and day for the calendar.</p>
   <calendar-chooser month-names="short"></calendar-chooser>
 </calendar-grid>
@@ -14,5 +46,6 @@
 <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="./utilities/calendar-range/calendarRange.js"></script>
 <script type="text/javascript" src="./app.js"></script>
+<script type="text/javascript" src="./utilities/demo.js"></script>
 </body>
 </html>

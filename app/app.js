@@ -49,8 +49,11 @@ angular.module('calendarDemoApp', [])
         transclude: true,
         templateUrl: 'templates/calendar-grid.html',
         link: function (scope, element, attrs, _noController_, transclude) {
-          scope.monthNames = monthNames[attrs.monthNames];
-          scope.weekdayNames = weekdayNames[attrs.weekdayNames];
+          scope.monthNames = monthNames[attrs.monthNames || 'long'];
+          scope.weekdayNames = weekdayNames[attrs.weekdayNames || 'narrow'];
+
+          // if 'arrows' attribute is specified on the element
+          scope.arrows = 'arrows' in attrs;
 
           var initialDate = new Date(attrs.date)
           if (!isNaN(initialDate)) {
@@ -60,7 +63,9 @@ angular.module('calendarDemoApp', [])
             // if no date attr. or date is invalid, use month and year attrs
             // with fallback to current date.
             initialDate = new Date();
-            scope.calendar.month = +attrs.month || initialDate.getMonth();
+            // Directive user sets the month according to traditional/ISO-8601
+            // sequence (i.e., starting at 1)
+            scope.calendar.month = +attrs.month - 1 || initialDate.getMonth();
             scope.calendar.year = +attrs.year || initialDate.getFullYear();
           }
 
@@ -81,13 +86,34 @@ angular.module('calendarDemoApp', [])
             $scope.currentDate = date.getDate();
             $scope.calendar = {};
 
-            var dateFromCal = function (cal) {
-              return new Date(cal.year, cal.month);
+            $scope.incMonth = function (amt) {
+              if (!arguments.length) { amt = 1; }
+              if (isNaN(amt)) { return; }
+              // current calendar.month may be set to a string
+              var month = +this.calendar.month + amt;
+              this.incYear(Math.floor(month / 12));
+              this.calendar.month = (month % 12 + 12) % 12;
+            };
+
+            $scope.decMonth = function () {
+              return this.incMonth(-1);
+            };
+
+            $scope.incYear = function (amt) {
+              if (!arguments.length) { amt = 1; }
+              if (isNaN(amt)) { return; }
+              // current calendar.year may be set to a string
+              this.calendar.year = +this.calendar.year + amt;
+            }
+
+            $scope.decYear = function () {
+              return this.incYear(-1);
             };
 
             $scope.setWeeks = function () {
               var weeks = [];
-              var date = dateFromCal($scope.calendar);
+              var cal = $scope.calendar;
+              var date = new Date(cal.year, cal.month);
               var range = CalendarRange.getMonthlyRange(date);
               var days = range.days;
               var startOfNextWeek;
@@ -118,8 +144,7 @@ angular.module('calendarDemoApp', [])
         replace: true,
         templateUrl: 'templates/calendar-chooser.html',
         link: function (scope, element, attrs) {
-          console.log(scope.calendar);
-          scope.monthNames = monthNames[attrs.monthNames];
+          scope.monthNames = monthNames[attrs.monthNames || 'long'];
         }
       };
     }

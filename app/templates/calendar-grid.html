@@ -1,7 +1,17 @@
 <div class="calendar-grid" direct-update>
   <ng-transclude></ng-transclude>
   <table>
-    <caption>{{ monthNames[calendar.month] }}, {{ calendar.year }}</caption>
+    <caption>
+      <button class="prevyear" ng-if="arrows"
+              ng-click="decYear()">&laquo;</button>
+      <button class="prevmonth" ng-if="arrows"
+              ng-click="decMonth()">&lsaquo;</button>
+      {{ monthNames[calendar.month] }}, {{ calendar.year }}
+      <button class="nextmonth" ng-if="arrows"
+              ng-click="incMonth()">&rsaquo;</button>
+      <button class="nextyear" ng-if="arrows"
+              ng-click="incYear()">&raquo;</button>
+    </caption>
     <thead>
       <tr>
         <th ng-repeat="name in weekdayNames track by $index">{{ name }}</th>

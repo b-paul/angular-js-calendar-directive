@@ -2,7 +2,12 @@
   <form>
 
     <select name="month" ng-model="calendar.month">
-      <option ng-repeat="name in monthNames" value="{{ $index }}">
+      <option ng-repeat="name in monthNames" value="{{ $index }}"}}
+              ng-if="$index === calendar.month" selected>
+        {{ name }}
+      </option>
+      <option ng-repeat="name in monthNames" value="{{ $index }}"}}
+              ng-if="$index !== calendar.month">
         {{ name }}
       </option>
     </select>
