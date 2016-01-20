@@ -1,13 +1,13 @@
 <div class="calendar-chooser">
   <form>
 
-    <select name="month" ng-model="monthValue">
+    <select name="month" ng-model="calendar.month">
       <option ng-repeat="name in monthNames" value="{{ $index }}">
         {{ name }}
       </option>
     </select>
 
-    <input type="number" name="year" ng-model="yearValue">
+    <input type="number" name="year" ng-model="calendar.year">
 
   </form>
 </div>

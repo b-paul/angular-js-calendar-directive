@@ -1,11 +1,10 @@
 <div class="calendar-grid" direct-update>
-  <calendar-chooser month-value="calendar.month" year-value="calendar.year">
-  </calendar-chooser>
+  <ng-transclude></ng-transclude>
   <table>
     <caption>{{ monthNames[calendar.month] }}, {{ calendar.year }}</caption>
     <thead>
       <tr>
-        <th ng-repeat="abbr in weekdayAbbrvs track by $index">{{ abbr }}</th>
+        <th ng-repeat="name in weekdayNames track by $index">{{ name }}</th>
       </tr>
     </thead>
     <tbody>

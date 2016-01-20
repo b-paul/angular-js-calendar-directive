@@ -6,7 +6,10 @@
 </head>
 <body>
 
-<calendar-grid></calendar-grid>
+<calendar-grid month-names="long" weekday-names="narrow" date="1955-11-5">
+  <p>Please select a month and day for the calendar.</p>
+  <calendar-chooser month-names="short"></calendar-chooser>
+</calendar-grid>
 
 <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="./utilities/calendar-range/calendarRange.js"></script>

@@ -40,26 +40,46 @@ angular.module('calendarDemoApp', [])
     }
   ])
   .directive('calendarGrid', [
-    function () {
+    'monthNames', 'weekdayNames',
+    function (monthNames, weekdayNames) {
       return {
         restrict: 'E',
-        scope: true,
+        scope: {},
         replace: true,
+        transclude: true,
         templateUrl: 'templates/calendar-grid.html',
+        link: function (scope, element, attrs, _noController_, transclude) {
+          scope.monthNames = monthNames[attrs.monthNames];
+          scope.weekdayNames = weekdayNames[attrs.weekdayNames];
+
+          var initialDate = new Date(attrs.date)
+          if (!isNaN(initialDate)) {
+            scope.calendar.month = initialDate.getMonth();
+            scope.calendar.year = initialDate.getFullYear();
+          } else {
+            // if no date attr. or date is invalid, use month and year attrs
+            // with fallback to current date.
+            initialDate = new Date();
+            scope.calendar.month = +attrs.month || initialDate.getMonth();
+            scope.calendar.year = +attrs.year || initialDate.getFullYear();
+          }
+
+          // add calendar into transcluded scope
+          transclude(function (clonedHtml, transcludedScope) {
+            transcludedScope.calendar
+              || (transcludedScope.calendar = scope.calendar);
+            element.find('ng-transclude').replaceWith(clonedHtml);
+          });
+        },
         controller: [
-          '$scope', 'monthNames', 'weekdayNames',
-          function ($scope, monthNames, weekdayNames) {
+          '$scope',
+          function ($scope) {
             var date = new Date();
 
-            $scope.monthNames = monthNames.long;
-            $scope.weekdayAbbrvs = weekdayNames.narrow;
             $scope.currentYear = date.getFullYear();
             $scope.currentMonth = date.getMonth();
             $scope.currentDate = date.getDate();
-            $scope.calendar = {
-              month: $scope.currentMonth,
-              year: $scope.currentYear
-            };
+            $scope.calendar = {};
 
             var dateFromCal = function (cal) {
               return new Date(cal.year, cal.month);
@@ -91,21 +111,16 @@ angular.module('calendarDemoApp', [])
     }
   ])
   .directive('calendarChooser', [
-    function () {
+    'monthNames',
+    function (monthNames) {
       return {
         restrict: 'E',
-        scope: {
-          monthValue: '=',
-          yearValue: '='
-        },
         replace: true,
         templateUrl: 'templates/calendar-chooser.html',
-        controller: [
-          '$scope', 'monthNames',
-          function ($scope, monthNames) {
-            $scope.monthNames = monthNames.short;
-          }
-        ]
+        link: function (scope, element, attrs) {
+          console.log(scope.calendar);
+          scope.monthNames = monthNames[attrs.monthNames];
+        }
       };
     }
   ]);
