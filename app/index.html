@@ -6,42 +6,117 @@
 </head>
 <body>
 
-<h1>Default <code>&lt;calendar-grid></code> with arrows</h1>
-<calendar-grid arrows></calendar-grid>
+<section class="calendardemo">
+  <h1>Default <code>&lt;calendar-grid></code> with arrows</h1>
 
-<h1>Specify starting date</h1>
-<calendar-grid arrows date="1955-11-5"></calendar-grid>
+  <!-- Default grid code sample -->
+  <p><code><pre>
+  &lt;calendar-grid arrows>&lt;/calendar-grid>
+  </pre></code></p>
 
-<h1>Alternate way to specify starting date</h1>
-<calendar-grid arrows month="9" year="1993"></calendar-grid>
+  <!-- Default grid example -->
+  <calendar-grid arrows></calendar-grid>
+</section>
 
-<h1>Either value may be omitted</h1>
-<p>It will be substituted for the equivalent value from the current date.</p>
-<calendar-grid arrows month="9"></calendar-grid>
+<section class="calendardemo">
+  <h1>Specify starting date</h1>
 
-<h1>Control display of month and weekday names</h1>
-<p><code>month-names</code> accepts the values "short" and "long".</p>
-<p><code>weekday-names</code> accepts the same as well as "narrow".</p>
-<p>By default, <code>month-names="long"</code> and
-<code>weekday-names="narrow"</code>.</p>
-<calendar-grid arrows month-names="short" weekday-names="short"></calendar-grid>
+  <!-- Starting date code sample -->
+  <p><code><pre>
+  &lt;calendar-grid arrows date="1955-11-5">&lt;/calendar-grid>
+  </pre></code></p>
 
-<h1>Transcluded HTML has access to the <code>calendar</code> scope property
-of its parent.</h1>
-<calendar-grid>
-  <button ng-controller="randomMonth" ng-click="calendar.month = spin()">
-    Spin!
-  </button>
-</calendar-grid>
+  <!-- Starting date example -->
+  <calendar-grid arrows date="1955-11-5"></calendar-grid>
+</section>
 
-<h1>Include a <code>&lt;calendar-chooser></code> for a quick alternative to
-<code>arrows</code> navigation.</h1>
-<p><code>&lt;calendar-chooser></code> accepts the same <code>month-names</code>
-attribute as <code>&lt;calendar-grid></code></p>
-<calendar-grid>
-  <p>Please select a month and day for the calendar.</p>
-  <calendar-chooser month-names="short"></calendar-chooser>
-</calendar-grid>
+<section class="calendardemo">
+  <h1>Alternate way to specify starting date</h1>
+
+  <!-- Starting month and year code sample -->
+  <p><code><pre>
+  &lt;calendar-grid arrows month="9" year="1993">&lt;/calendar-grid>
+  </pre></code></p>
+
+  <!-- Starting month and year example -->
+  <calendar-grid arrows month="9" year="1993"></calendar-grid>
+</section>
+
+<section class="calendardemo">
+  <h1>Either value may be omitted</h1>
+  <p>It will be substituted for the equivalent value from the current date.</p>
+
+  <!-- Starting month code sample -->
+  <p><code><pre>
+  &lt;calendar-grid arrows month="9">&lt;/calendar-grid>
+  </pre></code></p>
+
+  <!-- Starting month example -->
+  <calendar-grid arrows month="9"></calendar-grid>
+</section>
+
+<section class="calendardemo">
+  <h1>Control display of month and weekday names</h1>
+  <p><code>month-names</code> accepts the values "short" and "long".</p>
+  <p><code>weekday-names</code> accepts the same as well as "narrow".</p>
+  <p>By default, <code>month-names="long"</code> and
+  <code>weekday-names="narrow"</code>.</p>
+
+  <!-- Naming code sample -->
+  <p><code><pre>
+  &lt;calendar-grid arrows month-names="short" weekday-names="short">
+  &lt;/calendar-grid>
+  </pre></code></p>
+
+  <!-- Naming example -->
+  <calendar-grid arrows month-names="short" weekday-names="short"></calendar-grid>
+</section>
+
+<section class="calendardemo">
+  <h1>Transcluded HTML has access to the <code>calendar</code> scope property
+  of its parent.</h1>
+
+  <!-- Transclusion code sample -->
+  <p><code><pre>
+  &lt;calendar-grid>
+    &lt;button ng-controller="randomMonth" ng-click="calendar.month = spin()"
+               class="calendar-grid-spin-button">
+      Spin!
+    &lt;/button>
+  &lt;/calendar-grid>
+  </pre></code></p>
+
+  <!-- Transclusion example -->
+  <calendar-grid>
+    <button ng-controller="randomMonth" ng-click="calendar.month = spin()"
+            class="calendar-grid-spin-button">
+      Spin!
+    </button>
+  </calendar-grid>
+</section>
+
+<section class="calendardemo">
+  <h1>Include a <code>&lt;calendar-chooser></code> for a quick alternative to
+  <code>arrows</code> navigation.</h1>
+  <p><code>&lt;calendar-chooser></code> accepts the same <code>month-names</code>
+  attribute as <code>&lt;calendar-grid></code></p>
+
+  <!-- Chooser code sample -->
+  <p><code><pre>
+  &lt;calendar-grid>
+    &lt;p class="chooser-hint">
+      Please select a month and day for the calendar.
+    &lt;/p>
+    &lt;calendar-chooser month-names="short">&lt;/calendar-chooser>
+  &lt;/calendar-grid>
+  </pre></code></p>
+
+  <!-- Chooser example -->
+  <calendar-grid>
+    <p class="chooser-hint">Please select a month and day for the calendar.</p>
+    <calendar-chooser month-names="long"></calendar-chooser>
+  </calendar-grid>
+</section>
 
 <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="./utilities/calendar-range/calendarRange.js"></script>

@@ -6,7 +6,9 @@
               ng-click="decYear()">&laquo;</button>
       <button class="prevmonth" ng-if="arrows"
               ng-click="decMonth()">&lsaquo;</button>
-      {{ monthNames[calendar.month] }}, {{ calendar.year }}
+      <h1>
+        {{ monthNames[calendar.month] }}, {{ calendar.year }}
+      </h1>
       <button class="nextmonth" ng-if="arrows"
               ng-click="incMonth()">&rsaquo;</button>
       <button class="nextyear" ng-if="arrows"
@@ -21,11 +23,11 @@
       <tr ng-repeat="week in weeks">
         <td ng-repeat="day in week"
             ng-class="{
-              'weekday':    day.weekday,
-              'this-month': day.month === calendar.month,
-              'today':      day.day === currentDate
-                         && day.month === currentMonth
-                         && day.year === currentYear
+              'weekend':    !day.weekday,
+              'this-month': day.month == calendar.month,
+              'today':      day.day == currentDate
+                         && day.month == currentMonth
+                         && day.year == currentYear
             }">{{ day.day }}</td>
       </tr>
     </tbody>
