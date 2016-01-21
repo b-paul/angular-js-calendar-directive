@@ -55,6 +55,7 @@ body {
 
 .calendar-grid td,
 .calendar-grid th {
+  position: relative;
   height: 1.75rem;
   min-width: 1.75rem;
   text-align: center;
@@ -79,6 +80,8 @@ body {
   content: '';
   display: block;
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 1.75rem;
   height: 0;
   border-top: 2px solid #d10101;
