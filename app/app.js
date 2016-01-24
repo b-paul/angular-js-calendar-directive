@@ -44,11 +44,11 @@ angular.module('calendarDemoApp', [])
     function (monthNames, weekdayNames) {
       return {
         restrict: 'E',
-        scope: {},
+        scope: true,
         replace: true,
         transclude: true,
         templateUrl: 'templates/calendar-grid.html',
-        link: function (scope, element, attrs, _noController_, transclude) {
+        link: function (scope, element, attrs, _norequire_, transclude) {
           scope.monthNames = monthNames[attrs.monthNames || 'long'];
           scope.weekdayNames = weekdayNames[attrs.weekdayNames || 'narrow'];
 
@@ -64,7 +64,7 @@ angular.module('calendarDemoApp', [])
             // with fallback to current date.
             initialDate = new Date();
             // Directive user sets the month according to traditional/ISO-8601
-            // sequence (i.e., starting at 1)
+            // sequence (i.e., starting at 1) so we convert to JS by `- 1`
             scope.calendar.month = +attrs.month - 1 || initialDate.getMonth();
             scope.calendar.year = +attrs.year || initialDate.getFullYear();
           }
@@ -141,6 +141,7 @@ angular.module('calendarDemoApp', [])
     function (monthNames) {
       return {
         restrict: 'E',
+        scope: true,
         replace: true,
         templateUrl: 'templates/calendar-chooser.html',
         link: function (scope, element, attrs) {
