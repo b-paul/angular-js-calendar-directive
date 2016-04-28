@@ -19,7 +19,6 @@ angular.module('calendarDemoApp', [])
     '$locale',
     function ($locale) {
       var date = new Date();
-      var dateNumber = date.getDate();
       var names = {
         long: [],
         short: [],
@@ -27,7 +26,7 @@ angular.module('calendarDemoApp', [])
       };
       var weekday;
       for (var i = 0; i < 7; i++) {
-        date.setDate(dateNumber++);
+        date.setDate(date.getDate() + 1);
         weekday = date.getDay();
         names.long[weekday]
           = date.toLocaleString($locale.id, {weekday: 'long'});
@@ -70,7 +69,7 @@ angular.module('calendarDemoApp', [])
           }
 
           // add calendar into transcluded scope
-          transclude(function (clonedHtml, transcludedScope) {
+          transclude(scope.$new(), function (clonedHtml, transcludedScope) {
             transcludedScope.calendar
               || (transcludedScope.calendar = scope.calendar);
             element.find('ng-transclude').replaceWith(clonedHtml);
