@@ -1,0 +1,115 @@
+/* your css code goes here */
+
+h1 {
+  margin: 0;
+}
+
+body {
+  background-color: #f0ecec;
+}
+
+.calendardemo {
+  padding: 2.5rem 1.5rem;
+  border-bottom: 1px solid black;
+}
+
+.calendardemo:last-child {
+  border-bottom: none
+}
+
+.calendar-grid {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: black;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.4rem;
+}
+
+.calendar-grid table {
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 0.2rem;
+  overflow: hidden;
+}
+
+.calendar-grid caption {
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  padding: 0 0.1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.calendar-grid caption>button {
+  vertical-align: middle;
+  transform: scale(1.1, 1.1) translateY(-0.1rem);
+}
+
+.calendar-grid h1 {
+  display: inline-block;
+  width: 10rem;
+  margin: 0 0.5rem;
+  font-size: 1em;
+}
+
+.calendar-grid td,
+.calendar-grid th {
+  position: relative;
+  height: 1.75rem;
+  min-width: 1.75rem;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.4rem;
+}
+
+.calendar-grid td {
+  border-top: 1px solid #d4d4d4;
+  color: #8b8b8b;
+}
+
+.calendar-grid .this-month {
+  color: inherit;
+}
+
+.calendar-grid .weekend {
+  background-color: #e7e7e7;
+}
+
+.today::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.75rem;
+  height: 0;
+  border-top: 2px solid #d10101;
+}
+
+.calendar-chooser {
+  width: 100%;
+  margin-bottom: 0.8rem;
+}
+
+.calendar-chooser .monthselect,
+.calendar-chooser .yearinput {
+  margin: 0 1%;
+}
+
+.calendar-chooser .monthselect {
+  width: 32%;
+}
+
+.calendar-chooser .yearinput {
+  width: 60%;
+}
+
+.calendar-grid-spin-button {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.chooser-hint {
+  font-size: 0.9rem;
+}

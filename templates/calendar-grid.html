@@ -1,0 +1,35 @@
+<div class="calendar-grid" direct-update>
+  <ng-transclude></ng-transclude>
+  <table>
+    <caption>
+      <button class="prevyear" ng-if="arrows"
+              ng-click="decYear()">&laquo;</button>
+      <button class="prevmonth" ng-if="arrows"
+              ng-click="decMonth()">&lsaquo;</button>
+      <h1>
+        {{ monthNames[calendar.month] }}, {{ calendar.year }}
+      </h1>
+      <button class="nextmonth" ng-if="arrows"
+              ng-click="incMonth()">&rsaquo;</button>
+      <button class="nextyear" ng-if="arrows"
+              ng-click="incYear()">&raquo;</button>
+    </caption>
+    <thead>
+      <tr>
+        <th ng-repeat="name in weekdayNames track by $index">{{ name }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="week in weeks">
+        <td ng-repeat="day in week"
+            ng-class="{
+              'weekend':    !day.weekday,
+              'this-month': day.month == calendar.month,
+              'today':      day.day == currentDate
+                         && day.month == currentMonth
+                         && day.year == currentYear
+            }">{{ day.day }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
